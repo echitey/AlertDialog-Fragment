@@ -11,7 +11,8 @@ namespace AlertDialogFragment
     [Activity(Label = "AlertDialogFragment", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        int count = 1;
+        private Button btnDialog;
+        private Button btnDialogFragment;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -20,11 +21,30 @@ namespace AlertDialogFragment
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.MyButton);
+            btnDialog = FindViewById<Button>(Resource.Id.btnDialog);
+            btnDialogFragment = FindViewById<Button>(Resource.Id.btnDialogFragment);
 
-            button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            btnDialog.Click += BtnDialog_Click;
+            btnDialogFragment.Click += BtnDialogFragment_Click;
+        }
+
+        private void BtnDialogFragment_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BtnDialog_Click(object sender, EventArgs e)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Alert Dialog");
+            builder.SetMessage("This is the Default Dialog Fragment.");
+            builder.SetPositiveButton("OK", delegate {
+                Toast.MakeText(this, "OK Button Pressed", ToastLength.Short).Show();
+            });
+            builder.SetNegativeButton("Cancel", delegate {
+                builder.Dispose();
+            });
+            builder.Show();
         }
     }
 }
