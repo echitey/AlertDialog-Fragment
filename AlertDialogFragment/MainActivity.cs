@@ -30,7 +30,9 @@ namespace AlertDialogFragment
 
         private void BtnDialogFragment_Click(object sender, EventArgs e)
         {
-            
+            FragmentTransaction tr = FragmentManager.BeginTransaction();
+            CustomDialogFragment dialog = new CustomDialogFragment();
+            dialog.Show(tr, "LoginFragment");
         }
 
         private void BtnDialog_Click(object sender, EventArgs e)
